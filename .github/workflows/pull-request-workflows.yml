@@ -1,12 +1,15 @@
-name: Feature Branch workflow
+name: Pull request workflow
 
 on:
   push:
     branches:
-      - 'feature/**'
       - 'ci/**'
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  unit-test:
+  integration-test:
     runs-on: ubuntu-latest
 
     permissions:
@@ -24,5 +27,5 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      - name: Run unit tests
-        run: ./mvnw clean test
+      - name: Run integration tests
+        run: ./mvnw clean integration-test
