@@ -1,0 +1,24 @@
+name: Pull request workflow
+
+on:
+  push:
+    branches:
+      - 'ci/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Run integration tests
+        run: ./mvnw clean integration-test
