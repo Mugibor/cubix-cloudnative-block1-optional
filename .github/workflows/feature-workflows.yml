@@ -1,0 +1,28 @@
+name: Feature Branch workflow
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'ci/**'
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Run unit tests
+        run: ./mvnw clean test
